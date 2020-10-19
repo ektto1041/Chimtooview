@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Sort Category
 const SORT_CATEGORY = {
   VIEW_COUNT: 0,
@@ -10,6 +8,13 @@ const SORT_CATEGORY = {
   VIEW_LIKE_RATE: 5,
   VIEW_LIKE_GAP: 6,
   DATE: 7,
+
+  VIEW_COUNT_SUM: 100,
+  VIEW_COUNT_AVG: 101,
+  LIKE_COUNT_SUM: 102,
+  LIKE_COUNT_AVG: 103,
+  DISLIKE_COUNT_SUM: 104,
+  DISLIKE_COUNT_AVG: 105,
 };
 
 // Sort Order

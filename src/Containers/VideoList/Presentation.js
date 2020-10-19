@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Spin} from 'antd';
+import {Spin, Pagination} from 'antd';
 
 import VideoItem from '../../components/VideoItem';
 
@@ -56,6 +56,13 @@ const RadioButton = styled.input`
   margin-right: 20px;
 `;
 
+const Input = styled.input`
+  width: 200px;
+  height: 30px;
+
+  outline: none;
+`;
+
 const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
@@ -98,13 +105,25 @@ const ItemBox = styled.div`
   width: 100%;
 `;
 
+const PaginationBox = styled.div`
+  display:flex;
+  justify-content: center;
+`;
+
 const VideoListPresentation = ({
   list,
   isSpin,
+  searchWord,
+  searchWordPlaylist,
+  totalPage,
+  pageCurrent,
 
   onChangeSortCategory,
   onChangeSortOrder,
   onClickSearch,
+  onChangeSearchWord,
+  onChangeSearchWordPlaylist,
+  onChangePageCurrent,
 }) => {
   return (
     <Container>
@@ -142,13 +161,31 @@ const VideoListPresentation = ({
               </LineContent>
             </Line>
           </SortBox>
+          <SortBox style={{ marginTop: '10px' }}>
+            <Line>
+              <LineTitle>재생목록</LineTitle>
+              <LineContent>
+                <Input type='text' value={searchWordPlaylist} onChange={onChangeSearchWordPlaylist}/>
+              </LineContent>
+            </Line>
+            <Line>
+              <LineTitle>검색어</LineTitle>
+              <LineContent>
+                <Input type='text' value={searchWord} onChange={onChangeSearchWord}/>
+              </LineContent>
+            </Line>
+          </SortBox>
           <ButtonBox>
             <Button onClick={onClickSearch} >검색</Button>
-            <Button>조건 초기화</Button>
           </ButtonBox>
           <ItemBox>
             {list.map((item, idx) => (<VideoItem key={idx} item={item} />))}
           </ItemBox>
+          {totalPage === -1 ?
+          null :
+          <PaginationBox>
+            <Pagination defaultCurrent={1} current={pageCurrent} onChange={onChangePageCurrent} total={totalPage} pageSize={50}/>
+          </PaginationBox>}
         </Wrapper>
       </Spin>
     </Container>

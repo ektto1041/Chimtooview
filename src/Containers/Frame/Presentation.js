@@ -91,12 +91,6 @@ const Footer = styled.div`
 
 const FramePresentation = ({
   history,
-
-  allPlaylist,
-  allVideo,
-
-  setAllPlaylist,
-  setAllVideo,
 }) => {
   return (
     <Container>
@@ -112,23 +106,9 @@ const FramePresentation = ({
         <Route path='/' exact render={() =>
         <Main
           history={history}
-
-          allPlaylist={allPlaylist}
-          allVideo={allVideo}
-
-          setAllPlaylist={setAllPlaylist}
-          setAllVideo={setAllVideo}
         />}/>
-        <Route path='/videoList' component={() =>
-        <VideoList
-          allPlaylist={allPlaylist}
-          allVideo={allVideo}
-        />} />
-        <Route path='/playlistList' component={() =>
-        <PlList
-          allPlaylist={allPlaylist}
-          allVideo={allVideo}
-        />} />
+        <Route path='/videoList' component={() => <VideoList />} />
+        <Route path='/playlistList' component={() => <PlList />} />
         <Route path='/rughj2v9uiefj2q9eifjowefj' component={Admin}/>
       </Body>
       <Footer>

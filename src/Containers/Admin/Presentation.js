@@ -41,8 +41,10 @@ const Button = styled.button`
 
 const AdminPresentation = ({
   isSpin,
+  inputValue,
   onClickGetDataBtn,
   onClickSaveDataBtn,
+  onChangeInput,
 }) => {
   return (
     <Container>
@@ -51,7 +53,7 @@ const AdminPresentation = ({
           이 페이지에 접근하셨다면 제발 나가주세요~!~!
         </Message>
         <DataBox>
-          <KeyInput />
+          <KeyInput value={inputValue} onChange={onChangeInput} />
           <Button onClick={onClickGetDataBtn}>getData</Button>
           <Button onClick={onClickSaveDataBtn}>saveData</Button>
         </DataBox>

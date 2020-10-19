@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useParams} from 'react-router-dom';
 
 import AdminPresentation from './Presentation';
 
@@ -11,12 +10,18 @@ const AdminContainer = (props) => {
   // Spin
   const [isSpin, setIsSpin] = useState(false);
 
+  // Input
+  const [inputValue, setInputValue] = useState('');
+  const onChangeInput = (e) => {
+    setInputValue(e.target.value);
+  };
+
   const onClickGetDataBtn = async () => {
     setIsSpin(true);
 
     let channelId = null;
 
-    await youtubeApis.getChannel()
+    await youtubeApis.getChannel(inputValue)
     .then(r => {
         channelId = r.data.items[0].id;
 
@@ -31,24 +36,24 @@ const AdminContainer = (props) => {
      */
     let nextPageToken;
     do {
-      await youtubeApis.getPlaylists(channelId, nextPageToken)
+      await youtubeApis.getPlaylists(inputValue, channelId, nextPageToken)
       // eslint-disable-next-line no-loop-func
       .then(async r => {
         nextPageToken = r.data.nextPageToken;
 
-        const items = r.data.items;
+        const playlists = r.data.items;
 
         // 가져온 플레이리스트 하나마다 작업함
-        for(const pItem of items) {
-          console.log('현재 플레이리스트' + pItem.id);
+        for(let i=0; i<playlists.length; i++) {
+          console.log('현재 플레이리스트' + playlists[i].id);
 
-          if(pItem.id !== 'PLif_jr7pPZADUopMnmaZ1Yq84pSTrE0Dc') {
+          if(playlists[i].id !== 'PLif_jr7pPZADUopMnmaZ1Yq84pSTrE0Dc') {
             const videoIds = [];
 
             // 플레이리스트의 아이템에서 VideoId 를 가져옴 (NOT Video)
             let nextPageToken_;
             do {
-              await youtubeApis.getPlaylistItems(pItem.id, nextPageToken_)
+              await youtubeApis.getPlaylistItems(inputValue, playlists[i].id, nextPageToken_)
               // eslint-disable-next-line no-loop-func
               .then(r => {
                 nextPageToken_ = r.data.nextPageToken;
@@ -61,12 +66,15 @@ const AdminContainer = (props) => {
                 console.error(e);
               });
             } while(nextPageToken_)
-            
-            // 가져온 VideoID 를 통해 Video 를 가져와 플레이리스트 의 값으로 넣어줌
+
             const newVideos = [];
-            for(let i=0; i<videoIds.length; i++) {
-              youtubeApis.getVideos(videoIds[i])
-              // eslint-disable-next-line no-loop-func
+            for(let j=0; j < videoIds.length; j += 50) {
+              /**
+               * 50개씩 비디오아이디 묶기
+               */
+              const slicedVideoIds = videoIds.slice(j, j + 50);
+
+              await youtubeApis.getMultiVideos(inputValue, slicedVideoIds.join(','))
               .then(r => {
                 console.log(r.data);
 
@@ -90,32 +98,31 @@ const AdminContainer = (props) => {
                   };
 
                   newVideos.push(newVideo);
-
-                  if(i === videoIds.length - 1) {
-                    const newPlaylistItem = {
-                      id: pItem.id,
-                      // description: item.snippet.description,
-                      description: '',
-                      publishedAt: pItem.snippet.publishedAt,
-                      thumbnails: {
-                        defaultSize: (pItem.snippet.thumbnails.default?.url || ''),
-                        highSize: (pItem.snippet.thumbnails.high?.url || ''),
-                        maxresSize: (pItem.snippet.thumbnails.maxres?.url || ''),
-                        mediumSize: (pItem.snippet.thumbnails.medium?.url || ''),
-                        standardSize: (pItem.snippet.thumbnails.standard?.url || ''),
-                      },
-                      title: pItem.snippet.title,
-                      videoList: newVideos
-                    };
-
-                    tmp.push(newPlaylistItem);
-                  }
                 }
               })
               .catch(e => {
                 console.error(e);
               })
             }
+            const newPlaylistItem = {
+              id: playlists[i].id,
+              // description: item.snippet.description,
+              description: '',
+              publishedAt: playlists[i].snippet.publishedAt,
+              thumbnails: {
+                defaultSize: (playlists[i].snippet.thumbnails.default?.url || ''),
+                highSize: (playlists[i].snippet.thumbnails.high?.url || ''),
+                maxresSize: (playlists[i].snippet.thumbnails.maxres?.url || ''),
+                mediumSize: (playlists[i].snippet.thumbnails.medium?.url || ''),
+                standardSize: (playlists[i].snippet.thumbnails.standard?.url || ''),
+              },
+              title: playlists[i].snippet.title,
+              videoList: newVideos
+            };
+
+            console.log(tmp);
+
+            tmp.push(newPlaylistItem);
           }
         }
       })
@@ -123,6 +130,9 @@ const AdminContainer = (props) => {
         console.error(e);
       });
     } while(nextPageToken)
+
+    console.log('END');
+    console.log(tmp);
 
     setIsSpin(false);
   };
@@ -132,13 +142,15 @@ const AdminContainer = (props) => {
     // 서버에 보내서 DB에 저장
     setIsSpin(true);
 
-    await serverApis.postPlaylistAll(tmp)
-    .then(r => {
-      console.log(r.data);
-    })
-    .catch(e => {
-      console.error(e);
-    });
+    for(let i=0; i<tmp.length; i++) {
+      await serverApis.postPlaylist(tmp[i])
+      .then(r => {
+        console.log(r.data);
+      })
+      .catch(e => {
+        console.error(e);
+      });
+    }
 
     setIsSpin(false);
   };
@@ -147,8 +159,10 @@ const AdminContainer = (props) => {
     <>
       <AdminPresentation
         isSpin={isSpin}
+        inputValue={inputValue}
         onClickGetDataBtn={onClickGetDataBtn}
         onClickSaveDataBtn={onClickSaveDataBtn}
+        onChangeInput={onChangeInput}
       />
     </>
   );

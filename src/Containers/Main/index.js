@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 import {serverApis} from '../../Api';
+import {SORT_CATEGORY} from '../../constants';
 
 import Presentation from './Presentation';
 
-const MainContainer = ({
-  history,
-
-  allPlaylist,
-  allVideo,
-
-  setAllPlaylist,
-  setAllVideo,
-}) => {
+const MainContainer = () => {
+  // 각 분류마다 상위 5개의 Video를 담는 State
   const [topFive, setTopFive] = useState({
     publishedAt: [],
     viewCount: [],
@@ -24,50 +18,33 @@ const MainContainer = ({
     viewLikeGap: [],
   })
 
+  // Spin
   const [isSpin, setIsSpin] = useState(false);
 
   // USE EFFECT
+  /**
+   *  1. 모든 Video 를 가져옴
+   *  2. 가져온 Video 를 분류에 따라 상위 5개씩 나눠 State에 저장
+   */
   useEffect(() => {
     const initFunc = async () => {
       setIsSpin(true);
 
-      // 모든 Playlist 가져오기
-      await serverApis.getPlaylistAll()
+      // 모든 Video 가져오기
+      await serverApis.getVideoAllForTopFive()
       .then(r => {
-        const newAllPlaylist = r.data;
+        const allVideoForTopFive = r.data;
 
-        setAllPlaylist(newAllPlaylist);
-
-        const newAllVideo = [];
-        for(let i=0; i<newAllPlaylist.length; i++) {
-          const {videoList} = newAllPlaylist[i];
-
-          for(let j=0; j<videoList.length; j++) {
-            newAllVideo.push(videoList[j]);
-          }
-        }
-        setAllVideo(newAllVideo);
-
-        const topFiveList = Object.keys(topFive);
-        
-        const newTopFive = {...topFive};
-        for(let i=0; i<topFiveList.length; i++) {
-          // 데이터가 제대로 가져와졌으면 TopFive Sorting 작업
-          if(newAllVideo.length !== 0) {
-            const sortedItems = (i === 0 ? newAllVideo.sort((a, b) => {
-              if(a.publishedAt > b.publishedAt) { return -1; }
-              else if(b.publishedAt > a.publishedAt) { return 1; }
-              else { return 0; }
-            }) : newAllVideo.sort((a, b) => b[topFiveList[i]] - a[topFiveList[i]]));
-
-            const newTopFiveItems = [];
-            for(let j=0; j<5; j++) {
-              newTopFiveItems.push(sortedItems[j]);
-            }
-
-            newTopFive[topFiveList[i]] = newTopFiveItems;
-          }
-        }
+        const newTopFive = {
+          publishedAt: allVideoForTopFive[SORT_CATEGORY.DATE],
+          viewCount: allVideoForTopFive[SORT_CATEGORY.VIEW_COUNT],
+          likeCount: allVideoForTopFive[SORT_CATEGORY.LIKE_COUNT],
+          dislikeCount: allVideoForTopFive[SORT_CATEGORY.DISLIKE_COUNT],
+          likeRate: allVideoForTopFive[SORT_CATEGORY.LIKE_RATE],
+          likeGap: allVideoForTopFive[SORT_CATEGORY.LIKE_GAP],
+          viewLikeRate: allVideoForTopFive[SORT_CATEGORY.VIEW_LIKE_RATE],
+          viewLikeGap: allVideoForTopFive[SORT_CATEGORY.VIEW_LIKE_GAP],
+        };
 
         setTopFive(newTopFive);
 
@@ -81,12 +58,12 @@ const MainContainer = ({
     };
 
     initFunc();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <Presentation
-        history={history}
         topFive={topFive}
         isSpin={isSpin}
       />
