@@ -79,6 +79,36 @@ const AdminContainer = (props) => {
                 console.log(r.data);
 
                 for(const item of r.data.items) {
+                  // duration 을 초 단위로 변환하는 로직
+                  let durationStr = item.contentDetails.duration.substring(2, item.contentDetails.duration.length);
+
+                  const durationArr = [];
+                  if(durationStr.includes('H')) {
+                    const splitedStr = durationStr.split('H');
+
+                    durationArr.push(parseInt(splitedStr[0]));
+                    durationStr = splitedStr[1];
+                  } else {
+                    durationArr.push(0);
+                  }
+                  if(durationStr.includes('M')) {
+                    const splitedStr = durationStr.split('M');
+
+                    durationArr.push(parseInt(splitedStr[0]));
+                    durationStr = splitedStr[1];
+                  } else {
+                    durationArr.push(0);
+                  }
+                  if(durationStr.includes('S')) {
+                    const splitedStr = durationStr.split('S');
+
+                    durationArr.push(parseInt(splitedStr[0]));
+                  } else {
+                    durationArr.push(0);
+                  }
+
+                  const durationInt = durationArr[2] + (durationArr[1] * 60) + (durationArr[0] * 60 * 60);
+
                   const newVideo = {
                     id: item.id,
                     publishedAt: item.snippet.publishedAt,
@@ -94,7 +124,7 @@ const AdminContainer = (props) => {
                     dislikeCount: item.statistics.dislikeCount,
                     likeCount: item.statistics.likeCount,
                     viewCount: item.statistics.viewCount,
-                    duration: item.contentDetails.duration,
+                    duration: durationInt,
                   };
 
                   newVideos.push(newVideo);
@@ -142,6 +172,8 @@ const AdminContainer = (props) => {
     // 서버에 보내서 DB에 저장
     setIsSpin(true);
 
+    await serverApis.deletePlaylistAll();
+    
     for(let i=0; i<tmp.length; i++) {
       await serverApis.postPlaylist(tmp[i])
       .then(r => {

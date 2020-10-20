@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const chId = 'UCUj6rrhMTR9pipbAWBAMvUQ';
-const addr = (true) ? 'http://18.189.32.134:8080' : ''
+const addr = (false) ? 'http://18.216.143.187:8080' : ''
 
 const serverApis = {
   postPlaylist: (playlist) => new Promise((resolve, reject) => {
@@ -44,7 +44,7 @@ const serverApis = {
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
-  test: () => new Promise((resolve, reject) => {
+  deletePlaylistAll: () => new Promise((resolve, reject) => {
     axios.delete(`${addr}/deletePlaylistAll`)
     .then(r => resolve(r))
     .catch(e => reject(e));
