@@ -5,6 +5,8 @@ import {Route} from 'react-router-dom';
 import Main from '../Main';
 import VideoList from '../VideoList';
 import PlList from '../PlList';
+import Notice from '../Notice';
+import PostNotice from '../PostNotice';
 import Admin from '../Admin';
 
 import logo from '../../img/icon.png';
@@ -101,6 +103,7 @@ const FramePresentation = ({
         <NavItem onClick={() => {history.push('/');}}>요약</NavItem>
         <NavItem onClick={() => {history.push('/videoList');}}>영상</NavItem>
         <NavItem onClick={() => {history.push('/playlistList');}}>재생목록</NavItem>
+        <NavItem onClick={() => {history.push('/notice');}}>공지사항</NavItem>
       </NavBar>
       <Body>
         <Route path='/' exact render={() =>
@@ -109,6 +112,8 @@ const FramePresentation = ({
         />}/>
         <Route path='/videoList' component={() => <VideoList />} />
         <Route path='/playlistList' component={() => <PlList />} />
+        <Route path='/notice' component={() => <Notice />} />
+        <Route path='/postNotice' component={() => <PostNotice />} />
         <Route path='/rughj2v9uiefj2q9eifjowefj' component={Admin}/>
       </Body>
       <Footer>

@@ -1,19 +1,9 @@
 import axios from 'axios';
 
 const chId = 'UCUj6rrhMTR9pipbAWBAMvUQ';
-const addr = (false) ? 'http://18.216.143.187:8080' : ''
+const addr = (false) ? 'http://52.78.220.84:8080' : ''
 
 const serverApis = {
-  postPlaylist: (playlist) => new Promise((resolve, reject) => {
-    axios.post(`${addr}/postPlaylist`, playlist)
-    .then(r => resolve(r))
-    .catch(e => reject(e));
-  }),
-  getPlaylistAll: () => new Promise((resolve, reject) => {
-    axios.get(`${addr}/getPlaylistAll`)
-    .then(r => resolve(r))
-    .catch(e => reject(e));
-  }),
   getPlaylistAllCountByFilter: (searchWord) => new Promise((resolve, reject) => {
     axios.get(`${addr}/getPlaylistAllCountByFilter/${searchWord}`)
     .then(r => resolve(r))
@@ -21,11 +11,6 @@ const serverApis = {
   }),
   getPlaylistAllOrderByPaging: (category, order, searchWord, pageCurrent) => new Promise((resolve, reject) => {
     axios.get(`${addr}/getPlaylistAllOrderByPaging/${category}/${order}/${searchWord}/${pageCurrent}`)
-    .then(r => resolve(r))
-    .catch(e => reject(e));
-  }),
-  getVideoAll: () => new Promise((resolve, reject) => {
-    axios.get(`${addr}/getVideoAll`)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
@@ -44,6 +29,33 @@ const serverApis = {
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
+  getNoticeAllCount: () => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getNoticeAllCount`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  getNoticeAllOrderByPaging: (pageCurrent) => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getNoticeAllOrderByPaging/${pageCurrent}`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  getReloadTime: () => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getReloadTime`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+
+  postPlaylist: (playlist) => new Promise((resolve, reject) => {
+    axios.post(`${addr}/postPlaylist`, playlist)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  postNoticeItem: (noticeItem) => new Promise((resolve, reject) => {
+    axios.post(`${addr}/postNoticeItem`, noticeItem)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+
   deletePlaylistAll: () => new Promise((resolve, reject) => {
     axios.delete(`${addr}/deletePlaylistAll`)
     .then(r => resolve(r))

@@ -15,6 +15,11 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
+const RefreshTime = styled.div`
+  font-size: 1.2rem;
+  font-weight: 600;
+`;
+
 const Partition = styled.div`
   width: 50%;
 
@@ -37,11 +42,13 @@ const Title = styled.div`
 
 const MainPresentation = ({
   topFive,
+  reloadTime,
   isSpin,
 }) => {
   return (
     <Container>
       <Spin spinning={isSpin} >
+        <RefreshTime>데이터 갱신 시간: {reloadTime}</RefreshTime>
         <Wrapper>
           <Partition>
             <Title>최신</Title>

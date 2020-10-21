@@ -16,7 +16,10 @@ const MainContainer = () => {
     likeGap: [],
     viewLikeRate: [],
     viewLikeGap: [],
-  })
+  });
+
+  // 데이터 갱신 시각
+  const [reloadTime, setReloadTime] = useState('');
 
   // Spin
   const [isSpin, setIsSpin] = useState(false);
@@ -29,6 +32,20 @@ const MainContainer = () => {
   useEffect(() => {
     const initFunc = async () => {
       setIsSpin(true);
+
+      // 데이터 갱신 시간 가져오기
+      await serverApis.getReloadTime()
+      .then(r => {
+        console.log(r.data); // 2020-10-20T10:16:06.788
+
+        const newReloadTime = r.data.substring(0, 4) + '년 ' + r.data.substring(5, 7) + '월 ' + r.data.substring(8, 10) + '일 ' +
+                              r.data.substring(11, 13) + '시 ' + r.data.substring(14, 16) + '분 ' + r.data.substring(17, 19) + '초';
+        
+        setReloadTime(newReloadTime);
+      })
+      .catch(e => {
+        console.error(e);
+      });
 
       // 모든 Video 가져오기
       await serverApis.getVideoAllForTopFive()
@@ -65,6 +82,7 @@ const MainContainer = () => {
     <>
       <Presentation
         topFive={topFive}
+        reloadTime={reloadTime}
         isSpin={isSpin}
       />
     </>
