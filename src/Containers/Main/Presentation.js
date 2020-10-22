@@ -45,6 +45,8 @@ const MainPresentation = ({
   reloadTime,
   isSpin,
 }) => {
+  console.log(topFive);
+
   return (
     <Container>
       <Spin spinning={isSpin} >

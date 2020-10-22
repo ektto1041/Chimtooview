@@ -53,14 +53,14 @@ const MainContainer = () => {
         const allVideoForTopFive = r.data;
 
         const newTopFive = {
-          publishedAt: allVideoForTopFive[SORT_CATEGORY.DATE],
-          viewCount: allVideoForTopFive[SORT_CATEGORY.VIEW_COUNT],
-          likeCount: allVideoForTopFive[SORT_CATEGORY.LIKE_COUNT],
-          dislikeCount: allVideoForTopFive[SORT_CATEGORY.DISLIKE_COUNT],
-          likeRate: allVideoForTopFive[SORT_CATEGORY.LIKE_RATE],
-          likeGap: allVideoForTopFive[SORT_CATEGORY.LIKE_GAP],
-          viewLikeRate: allVideoForTopFive[SORT_CATEGORY.VIEW_LIKE_RATE],
-          viewLikeGap: allVideoForTopFive[SORT_CATEGORY.VIEW_LIKE_GAP],
+          publishedAt: allVideoForTopFive[0],
+          viewCount: allVideoForTopFive[1],
+          likeCount: allVideoForTopFive[2],
+          dislikeCount: allVideoForTopFive[3],
+          likeRate: allVideoForTopFive[4],
+          likeGap: allVideoForTopFive[5],
+          viewLikeRate: allVideoForTopFive[6],
+          viewLikeGap: allVideoForTopFive[7],
         };
 
         setTopFive(newTopFive);

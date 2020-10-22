@@ -137,18 +137,22 @@ const VideoListPresentation = ({
                 <RadioButton type='radio' name='sort_category' defaultChecked value={SORT_CATEGORY.DATE} onChange={onChangeSortCategory} />
                 조회수
                 <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.VIEW_COUNT} onChange={onChangeSortCategory} />
+                길이
+                <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.DURATION} onChange={onChangeSortCategory} />
                 좋아요
                 <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.LIKE_COUNT} onChange={onChangeSortCategory} />
                 싫어요
                 <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.DISLIKE_COUNT} onChange={onChangeSortCategory} />
                 좋싫비
-                <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.LIKE_RATE} onChange={onChangeSortCategory} />
+                <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.LIKE_DISLIKE_RATE} onChange={onChangeSortCategory} />
                 좋실차
-                <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.LIKE_GAP} onChange={onChangeSortCategory} />
+                <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.LIKE_DISLIKE_GAP} onChange={onChangeSortCategory} />
                 조좋비
                 <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.VIEW_LIKE_RATE} onChange={onChangeSortCategory} />
                 조좋차
                 <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.VIEW_LIKE_GAP} onChange={onChangeSortCategory} />
+                좋길비
+                <RadioButton type='radio' name='sort_category' value={SORT_CATEGORY.LIKE_DURATION_RATE} onChange={onChangeSortCategory} />
               </LineContent>
             </Line>
             <Line>

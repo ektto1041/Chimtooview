@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {EyeOutlined, LikeOutlined, DislikeOutlined, CalendarOutlined} from '@ant-design/icons';
+import {EyeOutlined, LikeOutlined, DislikeOutlined, CalendarOutlined, HistoryOutlined} from '@ant-design/icons';
 
 const Item = styled.div`
   display: flex;
@@ -28,9 +28,9 @@ const Data = styled.div`
 const PlaylistTitle = styled.div`
   padding-left: 10px;
 
-  height: 30px;
+  height: 25px;
 
-  line-height: 30px;
+  line-height: 25px;
   font-size: 1.1rem;
   font-weight: 600;
 
@@ -63,9 +63,9 @@ const Description = styled.div`
 
   padding-left: 5px;
 
-  height: 25px;
+  height: 20px;
 
-  line-height: 25px;
+  line-height: 20px;
   font-size: .8rem;
 `;
 
@@ -100,9 +100,16 @@ const VideoItem = ({
           {item.dislikeCount}
           <Icon style={{ marginLeft: '10px' }}><CalendarOutlined /></Icon>
           {item.publishedAt.substring(0,10)}
+          <Icon style={{ marginLeft: '10px' }}><HistoryOutlined /></Icon>
+          {(parseInt(item.duration / 3600) < 10 ? '0' : '') + parseInt(item.duration / 3600) + ':' +
+          (parseInt((item.duration % 3600) / 60) < 10 ? '0' : '') + parseInt((item.duration % 3600) / 60) + ':' +
+          ((item.duration % 60) < 10 ? '0' : '') + (item.duration % 60)}
         </Description>
         <Description>
-          좋싫비 : {item.likeRate.toFixed(3)} / 좋싫차 : {item.likeGap} / 조좋비 : {item.viewLikeRate.toFixed(3)} / 조좋차 : {item.viewLikeGap}
+          좋싫비 : {item.likeDislikeRate.toFixed(3)} / 좋싫차 : {item.likeDislikeGap} / 조좋비 : {item.viewLikeRate.toFixed(3)} / 조좋차 : {item.viewLikeGap}
+        </Description>
+        <Description>
+          좋길비 : {item.likeDurationRate.toFixed(3)}
         </Description>
       </Data>
     </Item> 
