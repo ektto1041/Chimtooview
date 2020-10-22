@@ -75,12 +75,21 @@ const ItemTitle = styled.div`
   display: flex;
   align-items: center;
 
-  width: 1050px;
+  width: 1040px;
 
   padding-left: 20px;
 
   font-size: 1.2rem;
   font-weight: 700;
+`;
+
+const ItemDate = styled.div`
+  display: flex;
+  align-items: center;
+
+  width: 110px;
+
+  font-size: 1.1rem;
 `;
 
 const ItemContent = styled.div`
@@ -130,6 +139,9 @@ const NoticePresentation = ({
                 <ItemTitle>
                   {noticeItem.title}
                 </ItemTitle>
+                <ItemDate>
+                  {noticeItem.publishedAt.substring(0,10)}
+                </ItemDate>
               </ItemHead>
               <ItemContent isOpen={isOpenList[idx]}>
                 {ReactHtmlParser(noticeItem.content)}

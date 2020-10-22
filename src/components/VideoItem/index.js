@@ -86,8 +86,8 @@ const VideoItem = ({
       <Data>
         <PlaylistTitle onClick={() => {window.open(`https://www.youtube.com/playlist?list=${item.playlistId}`)}}>{item.playlistTitle}</PlaylistTitle>
         <VideoTitle onClick={() => {window.open(`https://www.youtube.com/watch?v=${item.id}`)}} >
-          {item.title.length > 34 ?
-          item.title.substring(0, 33) + '...' :
+          {item.title.length > 32 ?
+          item.title.substring(0, 31) + '...' :
           item.title
           }
         </VideoTitle>
