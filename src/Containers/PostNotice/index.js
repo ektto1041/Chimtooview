@@ -8,6 +8,13 @@ const PostNoticeContainer = () => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
+  // RadioButton
+  const [chosenType, setChosenType] = useState('apology');
+
+  const onChangeType = (e) => {
+    setChosenType(e.target.value);
+  };
+
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -21,7 +28,7 @@ const PostNoticeContainer = () => {
 
     newNoticeItem.push(title);
     newNoticeItem.push(content);
-    newNoticeItem.push('apology');
+    newNoticeItem.push(chosenType);
 
     await serverApis.postNoticeItem(newNoticeItem)
     .then(r => {
@@ -37,6 +44,7 @@ const PostNoticeContainer = () => {
       <PostNoticePresentation
         title={title}
         content={content}
+        onChangeType={onChangeType}
         onChangeTitle={onChangeTitle}
         onChangeContent={onChangeContent}
         onClickPost={onClickPost}

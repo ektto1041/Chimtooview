@@ -125,7 +125,7 @@ const NoticePresentation = ({
                 <ItemType type={noticeItem.type} isOpen={isOpenList[idx]}>
                   {noticeItem.type === 'apology' ?
                   <>사과의<br />말씀</> :
-                  <>개선사항</>}
+                  <>공지사항</>}
                 </ItemType>
                 <ItemTitle>
                   {noticeItem.title}
