@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import {serverApis} from '../../Api';
-import {SORT_CATEGORY} from '../../constants';
 
 import Presentation from './Presentation';
 
@@ -36,8 +35,6 @@ const MainContainer = () => {
       // 데이터 갱신 시간 가져오기
       await serverApis.getReloadTime()
       .then(r => {
-        console.log(r.data); // 2020-10-20T10:16:06.788
-
         const newReloadTime = r.data.substring(0, 4) + '년 ' + r.data.substring(5, 7) + '월 ' + r.data.substring(8, 10) + '일 ' +
                               r.data.substring(11, 13) + '시 ' + r.data.substring(14, 16) + '분 ' + r.data.substring(17, 19) + '초';
         

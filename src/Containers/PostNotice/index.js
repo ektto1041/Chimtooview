@@ -19,8 +19,9 @@ const PostNoticeContainer = () => {
     setTitle(e.target.value);
   };
 
-  const onChangeContent = (e, editor) => {
-    setContent(editor.getData());
+  const onChangeContent = (c) => {
+    console.log(c);
+    setContent(c);
   };
 
   const onClickPost = async () => {

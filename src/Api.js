@@ -29,6 +29,21 @@ const serverApis = {
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
+  getBoardItemAllCountByFilter: (searchWord) => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getBoardItemAllCountByFilter/${searchWord}`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  getBoardItemAllOrderByPaging: (searchWord, pageCurrent) => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getBoardItemAllOrderByPaging/${searchWord}/${pageCurrent}`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  getBoardItemById: (boardItemId) => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getBoardItemById/${boardItemId}`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
   getNoticeAllCount: () => new Promise((resolve, reject) => {
     axios.get(`${addr}/getNoticeAllCount`)
     .then(r => resolve(r))
@@ -47,6 +62,11 @@ const serverApis = {
 
   postPlaylist: (playlist) => new Promise((resolve, reject) => {
     axios.post(`${addr}/postPlaylist`, playlist)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  postBoardItem: (boardItem) => new Promise((resolve, reject) => {
+    axios.post(`${addr}/postBoardItem`, boardItem)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
 
 const Container = styled.div`
   width: 100%;
@@ -44,16 +44,6 @@ const TitleText = styled.div`
 
 const TitleInput = styled.input`
   width: 800px;
-`;
-
-const EditorBox = styled.div`
-  width: 100%;
-  min-height: 500px;
-
-  .ck-content {
-    height: 500px;
-    overflow: vertical;
-  }
 `;
 
 const ButtonBox = styled.div`
@@ -109,13 +99,23 @@ const PostNoticePresentation = ({
         <TitleText>제목 : </TitleText>
         <TitleInput value={title} onChange={onChangeTitle} />
       </TitleBox>
-      <EditorBox>
-        <CKEditor
-          editor={ClassicEditor}
-          data={content}
-          onChange={onChangeContent}
-        />
-      </EditorBox>
+      <SunEditor
+      lang='ko'
+      name='editor'
+      height="500"
+      placeholder="내용을 입력해주세요."
+      onChange={onChangeContent}
+      setOptions={{
+        buttonList:[
+          ['font', 'fontSize'],
+          ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+          ['fontColor', 'hiliteColor'],
+          ['outdent', 'indent'],
+          ['align', 'horizontalRule', 'list', 'lineHeight'],
+          ['table', 'link']
+        ]
+      }}
+      />
       <ButtonBox>
         <Button onClick={onClickPost} >포스트</Button>
       </ButtonBox>
