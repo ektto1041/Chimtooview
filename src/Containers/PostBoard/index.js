@@ -97,8 +97,6 @@ const PostBoardConatiner = ({
 
         await serverApis.postBoardItem(newBoardItem)
         .then(r => {
-          console.log(r.data);
-
           alert('글 작성이 완료되었습니다!');
 
           history.push('/board');

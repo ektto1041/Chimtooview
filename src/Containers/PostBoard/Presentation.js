@@ -110,13 +110,11 @@ const PostBoardPresentation = ({
       <Notice>
         <h1>글쓰기 주의사항</h1>
         <p>1. 좋은 말만 씁시다.</p>
-        <p>2. 칭찬과 격려를 해줍시다.</p>
-        <p>3. 안 지키면 바로 검열</p>
       </Notice>
       <Spin spinning={isSpin}>
         <Wrapper>
           <TitleBox>
-            <TitleInput value={titleValue} onChange={onChangeTitle} placeholder="  제목을 입력해주세요." />
+            <TitleInput maxLength='50' value={titleValue} onChange={onChangeTitle} placeholder="  제목을 입력해주세요." />
           </TitleBox>
           <SunEditor
           lang='ko'
@@ -136,8 +134,8 @@ const PostBoardPresentation = ({
           }}
           />
           <Box>
-            <Input value={userIdValue} onChange={onChangeUserId} placeholder=" 글쓴이"/>
-            <Input value={userPwValue} onChange={onChangeUserPw} type='password' placeholder=" 비밀번호"/>
+            <Input maxLength='12' value={userIdValue} onChange={onChangeUserId} placeholder=" 글쓴이"/>
+            <Input maxLength='8' value={userPwValue} onChange={onChangeUserPw} type='password' placeholder=" 비밀번호"/>
           </Box>
           <Box>
             <Button onClick={onClickPost}>글쓰기</Button>

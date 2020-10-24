@@ -84,6 +84,11 @@ const ItemTitle = styled.div`
   line-height: 40px;
   font-size: 1.1rem;
   font-weight: 500;
+  color: black;
+
+  &:hover {
+    color: blue;
+  }
 `;
 
 const ItemUserId = styled.div`
@@ -102,7 +107,7 @@ const ItemDate = styled.div`
   height: 40px;
 
   line-height: 40px;
-  font-size: 1rem;
+  font-size: .9rem;
   font-weight: 500;
   text-align: center;
 `;
@@ -178,7 +183,7 @@ const BoardPresentation = ({
     <Container>
       <TitleBox>
         <Title>게시판</Title>
-        <SubTitle>어떤 이야기든 좋습니다. 하지만 조금이라도 불씨가 타오르면 검열당합니다.</SubTitle>
+        <SubTitle>어떤 이야기든 좋습니다. 격려와 칭찬이면 더 좋습니다.</SubTitle>
       </TitleBox>
       <Spin spinning={isSpin}>
         <ItemBox>
@@ -190,9 +195,9 @@ const BoardPresentation = ({
           </ItemIndicator>
           {boardItemList.map((boardItem, idx) => (
             <Item onClick={() => onClickBoardItem(boardItem.id)} key={idx}>
-              <ItemTitle>{boardItem.title}</ItemTitle>
+              <ItemTitle>{boardItem.title} ({boardItem.commentItemCount})</ItemTitle>
               <ItemUserId>{boardItem.userId}</ItemUserId>
-              <ItemDate>{boardItem.publishedAt.substring(0, 10)}</ItemDate>
+              <ItemDate>{boardItem.publishedAt.substring(0, 10) + ' ' + boardItem.publishedAt.substring(11,13) + ':' + boardItem.publishedAt.substring(14,16)}</ItemDate>
               <ItemViewCount>{boardItem.viewCount}</ItemViewCount>
             </Item>
           ))}

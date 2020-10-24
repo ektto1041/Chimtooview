@@ -44,6 +44,11 @@ const serverApis = {
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
+  getCommentItemAllOrderByPaging: (boardItemId, pageCurrent) => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getCommentItemAllOrderByPaging/${boardItemId}/${pageCurrent}`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
   getNoticeAllCount: () => new Promise((resolve, reject) => {
     axios.get(`${addr}/getNoticeAllCount`)
     .then(r => resolve(r))
@@ -70,14 +75,34 @@ const serverApis = {
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
+  postCommentItem: (commentItem) => new Promise((resolve, reject) => {
+    axios.post(`${addr}/postCommentItem`, commentItem)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
   postNoticeItem: (noticeItem) => new Promise((resolve, reject) => {
     axios.post(`${addr}/postNoticeItem`, noticeItem)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  postReports: (reports) => new Promise((resolve, reject) => {
+    axios.post(`${addr}/postReports`, reports)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
 
   deletePlaylistAll: () => new Promise((resolve, reject) => {
     axios.delete(`${addr}/deletePlaylistAll`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  deleteBoardItemById: (boardItemId) => new Promise((resolve, reject) => {
+    axios.delete(`${addr}/deleteBoardItemById/${boardItemId}`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  deleteCommentItemById: (commentId) => new Promise((resolve, reject) => {
+    axios.delete(`${addr}/deleteCommentItemById/${commentId}`)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
