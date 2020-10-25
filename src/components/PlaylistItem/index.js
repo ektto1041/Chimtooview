@@ -53,6 +53,14 @@ const Description = styled.div`
   font-size: .8rem;
 `;
 
+const ColoredText = styled.div`
+  width: 30px;
+  height: 20px;
+
+  line-height: 20px;
+  color: #c50066;
+`;
+
 const Icon = styled.div`
   width: 20px;
   height: 20px;
@@ -70,6 +78,7 @@ const PlaylistItem = ({
       <Data>
         <PlaylistTitle onClick={() => {window.open(`https://www.youtube.com/playlist?list=${item.id}`)}}>{item.title}</PlaylistTitle>
         <Description>
+          <ColoredText>합계</ColoredText>
           <Icon><EyeOutlined /></Icon>
           {item.viewCountSum}
           <Icon style={{ marginLeft: '10px' }}><LikeOutlined /></Icon>
@@ -80,6 +89,7 @@ const PlaylistItem = ({
           {item.publishedAt.substring(0,10)}
         </Description>
         <Description>
+          <ColoredText>평균</ColoredText>
           <Icon><EyeOutlined /></Icon>
           {item.viewCountAvg.toFixed(3)}
           <Icon style={{ marginLeft: '10px' }}><LikeOutlined /></Icon>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Spin, Pagination} from 'antd';
+import {Spin, Pagination, DatePicker} from 'antd';
 
 import VideoItem from '../../components/VideoItem';
 
@@ -18,7 +18,6 @@ const Wrapper = styled.div`
 
 const SortBox = styled.div`
   width: 100%;
-  height: 100px;
 
   box-sizing: border-box;
   border: .5px solid gray;
@@ -30,12 +29,20 @@ const Line = styled.div`
   display: flex;
   align-items: center;
 
-  width: 100%;
+  width: 1160px;
+  height: 50px;
+`;
+
+const HalfLine = styled.div`
+  display: flex;
+  align-items: center;
+
+  width: 580px;
   height: 50px;
 `;
 
 const LineTitle = styled.div`
-  width: 10%;
+  width: 120px;
   height: 50px;
 
   line-height: 50px;
@@ -48,11 +55,11 @@ const LineContent = styled.div`
   display: flex;
   align-items: center;
 
-  width: 90%;
   height: 50px;
 `;
 
 const RadioButton = styled.input`
+  margin-left: 3px;
   margin-right: 20px;
 `;
 
@@ -61,7 +68,16 @@ const Input = styled.input`
   height: 30px;
 
   outline: none;
+  box-sizing: border-box;
+  border: .5px solid gray;
 `;
+
+const DatePickerStyle = {
+  height: 30,
+
+  boxSizing: 'border-box',
+  border: '.5px solid gray',
+}
 
 const ButtonBox = styled.div`
   display: flex;
@@ -120,7 +136,15 @@ const VideoListPresentation = ({
 
   onChangeSortCategory,
   onChangeSortOrder,
+  onChangeStartDate,
+  onChangeEndDate,
   onClickSearch,
+  onChangeStartViewCount,
+  onChangeEndViewCount,
+  onChangeStartLikeCount,
+  onChangeEndLikeCount,
+  onChangeStartDislikeCount,
+  onChangeEndDislikeCount,
   onChangeSearchWord,
   onChangeSearchWordPlaylist,
   onChangePageCurrent,
@@ -167,16 +191,54 @@ const VideoListPresentation = ({
           </SortBox>
           <SortBox style={{ marginTop: '10px' }}>
             <Line>
-              <LineTitle>재생목록</LineTitle>
-              <LineContent>
-                <Input type='text' value={searchWordPlaylist} onChange={onChangeSearchWordPlaylist}/>
-              </LineContent>
+              <HalfLine>
+                <LineTitle>날짜</LineTitle>
+                <LineContent>
+                  <DatePicker allowClear placeholder={'1900-01-01'} onChange={onChangeStartDate} style={DatePickerStyle} />
+                  ~
+                  <DatePicker allowClear placeholder={'2100-01-01'} onChange={onChangeEndDate} style={DatePickerStyle} />
+                </LineContent>
+              </HalfLine>
+              <HalfLine>
+                <LineTitle>조회수</LineTitle>
+                <LineContent>
+                  <Input type='number' placeholder=' 0' style={{ width: 144 }} min='0' max='999999999' onChange={onChangeStartViewCount} />
+                  ~
+                  <Input type='number' placeholder=' 999,999,999' style={{ width: 144 }} min='0' max='999999999' onChange={onChangeEndViewCount} />
+                </LineContent>
+              </HalfLine>
             </Line>
             <Line>
-              <LineTitle>검색어</LineTitle>
-              <LineContent>
-                <Input type='text' value={searchWord} onChange={onChangeSearchWord}/>
-              </LineContent>
+              <HalfLine>
+                <LineTitle>좋아요</LineTitle>
+                <LineContent>
+                  <Input type='number' placeholder=' 0' style={{ width: 144 }} min='0' max='999999999' onChange={onChangeStartLikeCount} />
+                  ~
+                  <Input type='number' placeholder=' 999,999,999' style={{ width: 144 }} min='0' max='999999999' onChange={onChangeEndLikeCount} />
+                </LineContent>
+              </HalfLine>
+              <HalfLine>
+                <LineTitle>싫어요</LineTitle>
+                <LineContent>
+                  <Input type='number' placeholder=' 0' style={{ width: 144 }} min='0' max='999999999' onChange={onChangeStartDislikeCount} />
+                  ~
+                  <Input type='number' placeholder=' 999,999,999' style={{ width: 144 }} min='0' max='999999999' onChange={onChangeEndDislikeCount} />
+                </LineContent>
+              </HalfLine>
+            </Line>
+            <Line>
+              <HalfLine>
+                <LineTitle>재생목록</LineTitle>
+                <LineContent>
+                  <Input type='text' value={searchWordPlaylist} onChange={onChangeSearchWordPlaylist}/>
+                </LineContent>
+              </HalfLine>
+              <HalfLine>
+                <LineTitle>검색어</LineTitle>
+                <LineContent>
+                  <Input type='text' value={searchWord} onChange={onChangeSearchWord}/>
+                </LineContent>
+              </HalfLine>
             </Line>
           </SortBox>
           <ButtonBox>

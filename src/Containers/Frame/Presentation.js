@@ -67,6 +67,7 @@ const NavItem = styled.div`
   font-size: 1.3rem;
   font-weight: 500;
   color: #c50066;
+  user-select: none;
 
   box-sizing: border-box;
 
@@ -126,7 +127,7 @@ const FramePresentation = ({
       <Footer>
         데이터 제공 : Youtube<br />
         제작자 : 영통구대족장 (트위치에서 가끔 방송함)<br />
-        이메일 : dhkdwk1041@gamil.com
+        이메일 : dhkdwk1041@gmail.com
       </Footer>
     </Container>
   );

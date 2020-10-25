@@ -19,13 +19,25 @@ const serverApis = {
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
-  getVideoAllCountByFilter: (searchWord, searchWordPlaylist) => new Promise((resolve, reject) => {
-    axios.get(`${addr}/getVideoAllCountByFilter/${searchWord}/${searchWordPlaylist}`)
+  getVideoAllCountByFilter:
+  (startDate, endDate,
+    startViewCount, endViewCount,
+    startLikeCount, endLikeCount,
+    startDislikeCount, endDislikeCount,
+    searchWord, searchWordPlaylist) => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getVideoAllCountByFilter/${startDate}/${endDate}/${startViewCount}/${endViewCount}/${startLikeCount}/${endLikeCount}/${startDislikeCount}/${endDislikeCount}/${searchWord}/${searchWordPlaylist}`)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
-  getVideoAllOrderByPaging: (category, order, searchWord, searchWordPlaylist, pageCurrent) => new Promise((resolve, reject) => {
-    axios.get(`${addr}/getVideoAllOrderByPaging/${category}/${order}/${searchWord}/${searchWordPlaylist}/${pageCurrent}`)
+  getVideoAllOrderByPaging:
+  (category, order,
+    startDate, endDate,
+    startViewCount, endViewCount,
+    startLikeCount, endLikeCount,
+    startDislikeCount, endDislikeCount,
+    searchWord, searchWordPlaylist,
+    pageCurrent) => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getVideoAllOrderByPaging/${category}/${order}/${startDate}/${endDate}/${startViewCount}/${endViewCount}/${startLikeCount}/${endLikeCount}/${startDislikeCount}/${endDislikeCount}/${searchWord}/${searchWordPlaylist}/${pageCurrent}`)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
