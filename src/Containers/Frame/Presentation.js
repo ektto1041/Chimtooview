@@ -13,6 +13,7 @@ import PostNotice from '../PostNotice';
 import Admin from '../Admin';
 
 import logo from '../../img/icon.png';
+import {STRING, JSX, PATH} from '../../constants';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -101,33 +102,31 @@ const FramePresentation = ({
   return (
     <Container>
       <Header>
-        <Logo src={logo} alt='' onClick={() => {history.push('/');}} />
+        <Logo src={logo} alt='' onClick={() => {history.push(PATH.MAIN);}} />
       </Header>
       <NavBar>
-        <NavItem onClick={() => {history.push('/');}}>요약</NavItem>
-        <NavItem onClick={() => {history.push('/videoList');}}>영상</NavItem>
-        <NavItem onClick={() => {history.push('/playlistList');}}>재생목록</NavItem>
-        <NavItem onClick={() => {history.push('/board');}}>게시판</NavItem>
-        <NavItem onClick={() => {history.push('/notice');}}>공지사항</NavItem>
+        <NavItem onClick={() => {history.push(PATH.MAIN);}}>{STRING.NAV_ITEM_1}</NavItem>
+        <NavItem onClick={() => {history.push(PATH.VIDEO_LIST);}}>{STRING.NAV_ITEM_2}</NavItem>
+        <NavItem onClick={() => {history.push(PATH.PLAYLIST_LIST);}}>{STRING.NAV_ITEM_3}</NavItem>
+        <NavItem onClick={() => {history.push(PATH.BOARD);}}>{STRING.NAV_ITEM_4}</NavItem>
+        <NavItem onClick={() => {history.push(PATH.NOTICE);}}>{STRING.NAV_ITEM_5}</NavItem>
       </NavBar>
       <Body>
-        <Route path='/' exact render={() =>
+        <Route path={PATH.MAIN} exact render={() =>
         <Main
           history={history}
         />}/>
-        <Route path='/videoList' component={() => <VideoList />} />
-        <Route path='/playlistList' component={() => <PlList />} />
-        <Route path='/board' component={Board} />
-        <Route path='/postBoard' component={PostBoard} />
-        <Route path='/boardItem/:boardItemId' component={BoardItem} />
-        <Route path='/notice' component={() => <Notice />} />
-        <Route path='/postNotice' component={() => <PostNotice />} />
-        <Route path='/rughj2v9uiefj2q9eifjowefj' component={Admin}/>
+        <Route path={PATH.VIDEO_LIST} component={() => <VideoList />} />
+        <Route path={PATH.PLAYLIST_LIST} component={() => <PlList />} />
+        <Route path={PATH.BOARD} component={Board} />
+        <Route path={PATH.POST_BOARD} component={PostBoard} />
+        <Route path={PATH.BOARD_ITEM_F(':boardItemId')} component={BoardItem} />
+        <Route path={PATH.NOTICE} component={() => <Notice />} />
+        <Route path={PATH.POST_NOTICE} component={() => <PostNotice />} />
+        <Route path={PATH.ADMIN} component={Admin}/>
       </Body>
       <Footer>
-        데이터 제공 : Youtube<br />
-        제작자 : 영통구대족장 (트위치에서 가끔 방송함)<br />
-        이메일 : dhkdwk1041@gmail.com
+        {JSX.FOOTER_TEXT}
       </Footer>
     </Container>
   );

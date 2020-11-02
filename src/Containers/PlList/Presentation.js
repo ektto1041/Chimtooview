@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `;
 
 const SortBox = styled.div`
-  width: 100%;
+  width: 1160px;
 
   box-sizing: border-box;
   border: .5px solid gray;
@@ -29,12 +29,12 @@ const Line = styled.div`
   display: flex;
   align-items: center;
 
-  width: 100%;
+  width: 1160px;
   height: 50px;
 `;
 
 const LineTitle = styled.div`
-  width: 10%;
+  width: 120px;
   height: 50px;
 
   line-height: 50px;
@@ -47,11 +47,11 @@ const LineContent = styled.div`
   display: flex;
   align-items: center;
 
-  width: 90%;
   height: 50px;
 `;
 
 const RadioButton = styled.input`
+  margin-left: 3px;
   margin-right: 20px;
 `;
 
@@ -60,6 +60,8 @@ const Input = styled.input`
   height: 30px;
 
   outline: none;
+  box-sizing: border-box;
+  border: .5px solid gray;
 `;
 
 const ButtonBox = styled.div`

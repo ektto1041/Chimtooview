@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Spin, Pagination, DatePicker} from 'antd';
+import {Spin, Pagination, DatePicker, Modal} from 'antd';
+import {QuestionCircleOutlined} from '@ant-design/icons';
 
 import VideoItem from '../../components/VideoItem';
 
-import {SORT_CATEGORY, SORT_ORDER} from '../../constants';
+import {JSX, SORT_CATEGORY, SORT_ORDER} from '../../constants';
 
 const Container = styled.div`
   width: 1200px;
@@ -17,7 +18,7 @@ const Wrapper = styled.div`
 `;
 
 const SortBox = styled.div`
-  width: 100%;
+  width: 1160px;
 
   box-sizing: border-box;
   border: .5px solid gray;
@@ -42,6 +43,9 @@ const HalfLine = styled.div`
 `;
 
 const LineTitle = styled.div`
+  display: flex;
+  justify-content: center;
+
   width: 120px;
   height: 50px;
 
@@ -49,6 +53,19 @@ const LineTitle = styled.div`
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
+`;
+
+const Icon = styled.div`
+  align-self: center;
+
+  width: 20px;
+  height: 20px;
+
+  font-size: 1rem;
+  line-height: 10px;
+  color: #c50066;
+
+  cursor: pointer;
 `;
 
 const LineContent = styled.div`
@@ -126,6 +143,12 @@ const PaginationBox = styled.div`
   justify-content: center;
 `;
 
+const ModalWrapper = styled.div`
+  width: 300px;
+
+  font-size: .9rem;
+`;
+
 const VideoListPresentation = ({
   list,
   isSpin,
@@ -133,6 +156,8 @@ const VideoListPresentation = ({
   searchWordPlaylist,
   totalPage,
   pageCurrent,
+  modalVisible,
+  onCancelModal,
 
   onChangeSortCategory,
   onChangeSortOrder,
@@ -148,6 +173,7 @@ const VideoListPresentation = ({
   onChangeSearchWord,
   onChangeSearchWordPlaylist,
   onChangePageCurrent,
+  onClickQuestion,
 }) => {
   return (
     <Container>
@@ -155,7 +181,7 @@ const VideoListPresentation = ({
         <Wrapper>
           <SortBox>
             <Line>
-              <LineTitle>분류</LineTitle>
+              <LineTitle>분류<Icon onClick={onClickQuestion}><QuestionCircleOutlined /></Icon></LineTitle>
               <LineContent>
                 날짜
                 <RadioButton type='radio' name='sort_category' defaultChecked value={SORT_CATEGORY.DATE} onChange={onChangeSortCategory} />
@@ -254,6 +280,18 @@ const VideoListPresentation = ({
           </PaginationBox>}
         </Wrapper>
       </Spin>
+
+      <Modal
+        visible={modalVisible}
+        centered
+        title='도움말'
+        footer={null}
+        onCancel={onCancelModal}
+      >
+        <ModalWrapper>
+          {JSX.TERM}
+        </ModalWrapper>
+      </Modal>
     </Container>
   );
 };

@@ -16,6 +16,19 @@ const AdminContainer = (props) => {
     setInputValue(e.target.value);
   };
 
+  const onClickTest = async () => {
+    let nextPageToken;
+    do {
+      await youtubeApis.test(inputValue, nextPageToken)
+      // eslint-disable-next-line no-loop-func
+      .then(r => {
+        nextPageToken = r.data.nextPageToken;
+
+        console.log(r.data);
+      })
+    } while(nextPageToken)
+  }
+
   const onClickGetDataBtn = async () => {
     setIsSpin(true);
 
@@ -195,6 +208,7 @@ const AdminContainer = (props) => {
         onClickGetDataBtn={onClickGetDataBtn}
         onClickSaveDataBtn={onClickSaveDataBtn}
         onChangeInput={onChangeInput}
+        onClickTest={onClickTest}
       />
     </>
   );

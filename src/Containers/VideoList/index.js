@@ -46,6 +46,13 @@ const VideoListContainer = () => {
   const [nowSearchWord, setNowSearchWord] = useState('');
   const [nowSearchWordPlaylist, setNowSearchWordPlaylist] = useState('');
 
+  // Modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const onCancelModal = useCallback(() => {
+    setModalVisible(false);
+  }, []); 
+
+
   // Sort Category 변경
   const onChangeSortCategory = useCallback((e) => {
     setChosenSortCategory(e.target.value);
@@ -227,6 +234,11 @@ const VideoListContainer = () => {
     setIsSpin(false);
   }, [nowSortCategory, nowSortOrder, nowDateRange, nowStartViewCount, nowEndViewCount, nowStartLikeCount, nowEndLikeCount, nowStartDislikeCount, nowEndDislikeCount, nowSearchWord, nowSearchWordPlaylist])
 
+  // 도움말 클릭
+  const onClickQuestion = useCallback(() => {
+    setModalVisible(true);
+  }, []);
+
   return (
     <>
       <VideoListPresentation
@@ -236,7 +248,9 @@ const VideoListContainer = () => {
         searchWordPlaylist={searchWordPlaylist}
         totalPage={totalPage}
         pageCurrent={pageCurrent}
-
+        modalVisible={modalVisible}
+        
+        onCancelModal={onCancelModal}
         onChangeSortCategory={onChangeSortCategory}
         onChangeSortOrder={onChangeSortOrder}
         onChangeStartDate={onChangeStartDate}
@@ -251,6 +265,7 @@ const VideoListContainer = () => {
         onChangeSearchWord={onChangeSearchWord}
         onChangeSearchWordPlaylist={onChangeSearchWordPlaylist}
         onChangePageCurrent={onChangePageCurrent}
+        onClickQuestion={onClickQuestion}
       />
     </>
   );

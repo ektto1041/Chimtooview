@@ -17,12 +17,16 @@ const Item = styled.div`
 `;
 
 const Thumbnail = styled.img`
-  width: 160px;
+  width: 28%;
+  max-width: 160px;
   height: 120px;
 `;
 
 const Data = styled.div`
-  height: 105px;
+  width: 72%;
+  height: 115px;
+
+  overflow: hidden;
 `;
 
 const PlaylistTitle = styled.div`
@@ -33,6 +37,7 @@ const PlaylistTitle = styled.div`
   line-height: 25px;
   font-size: 1.1rem;
   font-weight: 600;
+  overflow: hidden;
 
   cursor: pointer;
 
@@ -49,6 +54,7 @@ const VideoTitle = styled.div`
   line-height: 25px;
   font-size: 1rem;
   font-weight: 600;
+  overflow: hidden;
 
   cursor: pointer;
 
@@ -86,10 +92,11 @@ const VideoItem = ({
       <Data>
         <PlaylistTitle onClick={() => {window.open(`https://www.youtube.com/playlist?list=${item.playlistId}`)}}>{item.playlistTitle}</PlaylistTitle>
         <VideoTitle onClick={() => {window.open(`https://www.youtube.com/watch?v=${item.id}`)}} >
-          {item.title.length > 32 ?
+          {/* {item.title.length > 32 ?
           item.title.substring(0, 31) + '...' :
           item.title
-          }
+          } */}
+          {item.title}
         </VideoTitle>
         <Description>
           <Icon><EyeOutlined /></Icon>

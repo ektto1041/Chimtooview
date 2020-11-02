@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const chId = 'UCUj6rrhMTR9pipbAWBAMvUQ';
-const addr = (false) ? 'http://52.78.220.84:8080' : ''
+const addr = (true) ? 'http://52.78.220.84:8080' : ''
 
 const serverApis = {
   getPlaylistAllCountByFilter: (searchWord) => new Promise((resolve, reject) => {
@@ -68,6 +68,11 @@ const serverApis = {
   }),
   getNoticeAllOrderByPaging: (pageCurrent) => new Promise((resolve, reject) => {
     axios.get(`${addr}/getNoticeAllOrderByPaging/${pageCurrent}`)
+    .then(r => resolve(r))
+    .catch(e => reject(e));
+  }),
+  getNoticeItemNew: () => new Promise((resolve, reject) => {
+    axios.get(`${addr}/getNoticeItemNew`)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),
@@ -149,8 +154,8 @@ const youtubeApis = {
     .catch(e => reject(e));
   }),
   // TEST
-  test: (key) => new Promise((resolve, reject) => {
-    axios.get(`https://www.googleapis.com/youtube/v3/search/?key=${key}&part=snippet&channelId=${chId}&maxResults=50`)
+  test: (key, nextPageToken) => new Promise((resolve, reject) => {
+    axios.get(`https://www.googleapis.com/youtube/v3/videos/?key=${key}&part=snippet,contentDetails,statistics&chart=mostPopular&regionCode=KR&maxResults=50${nextPageToken ? ('&pageToken=' + nextPageToken) : '' }`)
     .then(r => resolve(r))
     .catch(e => reject(e));
   }),

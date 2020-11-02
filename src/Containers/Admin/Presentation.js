@@ -45,6 +45,7 @@ const AdminPresentation = ({
   onClickGetDataBtn,
   onClickSaveDataBtn,
   onChangeInput,
+  onClickTest,
 }) => {
   return (
     <Container>
@@ -56,6 +57,7 @@ const AdminPresentation = ({
           <KeyInput value={inputValue} onChange={onChangeInput} />
           <Button onClick={onClickGetDataBtn}>getData</Button>
           <Button onClick={onClickSaveDataBtn}>saveData</Button>
+          <Button onClick={onClickTest}>test</Button>
         </DataBox>
       </Spin>
     </Container>

@@ -66,17 +66,17 @@ const Item = styled.div`
 
   height: 40px;
 
-  background: #eaeaea;
+  background: white;
 
   cursor: pointer;
 
   &:nth-of-type(odd) {
-    background: #efefef;
+    background: #eaeaea;
   }
 `;
 
 const ItemTitle = styled.div`
-  width: 830px;
+  width: 800px;
   height: 40px;
 
   padding-left: 10px;
@@ -91,19 +91,28 @@ const ItemTitle = styled.div`
   }
 `;
 
-const ItemUserId = styled.div`
-  width: 130px;
+const CommentItemCount = styled.span`
   height: 40px;
 
   padding-left: 10px;
 
   line-height: 40px;
+  font-size: .9rem;
+  color: black;
+`;
+
+const ItemUserId = styled.div`
+  width: 130px;
+  height: 40px;
+
+  line-height: 40px;
   font-size: 1rem;
   font-weight: 500;
+  text-align: center;
 `;
 
 const ItemDate = styled.div`
-  width: 130px;
+  width: 160px;
   height: 40px;
 
   line-height: 40px;
@@ -117,8 +126,7 @@ const ItemViewCount = styled.div`
   height: 40px;
 
   line-height: 40px;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: .9rem;
   text-align: center;
 `;
 
@@ -188,14 +196,14 @@ const BoardPresentation = ({
       <Spin spinning={isSpin}>
         <ItemBox>
           <ItemIndicator>
-            <ItemIndicatorPartition style={{ width: '830px' }}>제목</ItemIndicatorPartition>
+            <ItemIndicatorPartition style={{ width: '800px' }}>제목</ItemIndicatorPartition>
             <ItemIndicatorPartition style={{ width: '130px' }}>글쓴이</ItemIndicatorPartition>
-            <ItemIndicatorPartition style={{ width: '130px' }}>날짜</ItemIndicatorPartition>
+            <ItemIndicatorPartition style={{ width: '160px' }}>날짜</ItemIndicatorPartition>
             <ItemIndicatorPartition style={{ width: '70px' }}>조회수</ItemIndicatorPartition>
           </ItemIndicator>
           {boardItemList.map((boardItem, idx) => (
             <Item onClick={() => onClickBoardItem(boardItem.id)} key={idx}>
-              <ItemTitle>{boardItem.title} ({boardItem.commentItemCount})</ItemTitle>
+              <ItemTitle>{boardItem.title}<CommentItemCount>({boardItem.commentItemCount})</CommentItemCount></ItemTitle>
               <ItemUserId>{boardItem.userId}</ItemUserId>
               <ItemDate>{boardItem.publishedAt.substring(0, 10) + ' ' + boardItem.publishedAt.substring(11,13) + ':' + boardItem.publishedAt.substring(14,16)}</ItemDate>
               <ItemViewCount>{boardItem.viewCount}</ItemViewCount>

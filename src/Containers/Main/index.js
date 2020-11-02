@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {serverApis} from '../../Api';
+import {PATH} from '../../constants';
 
 import Presentation from './Presentation';
 
-const MainContainer = () => {
+const MainContainer = ({
+  history,
+}) => {
   // 각 분류마다 상위 5개의 Video를 담는 State
   const [topFive, setTopFive] = useState({
     publishedAt: [],
@@ -17,12 +20,21 @@ const MainContainer = () => {
     viewLikeGap: [],
   });
 
+  // 최신 공지사항
+  const [newNotice, setNewNotice] = useState('');
+
   // 데이터 갱신 시각
   const [reloadTime, setReloadTime] = useState('');
 
   // Spin
   const [isSpin, setIsSpin] = useState(false);
 
+  // Modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const onCancelModal = useCallback(() => {
+    setModalVisible(false);
+  }, []);
+  
   // USE EFFECT
   /**
    *  1. 모든 Video 를 가져옴
@@ -42,6 +54,8 @@ const MainContainer = () => {
       })
       .catch(e => {
         console.error(e);
+
+        setIsSpin(false);
       });
 
       // 모든 Video 가져오기
@@ -61,10 +75,21 @@ const MainContainer = () => {
         };
 
         setTopFive(newTopFive);
+      })
+      .catch(e =>{
+        console.error(e);
 
         setIsSpin(false);
       })
-      .catch(e =>{
+
+      // 최신 공지사항 가져오기
+      await serverApis.getNoticeItemNew()
+      .then(r => {
+        setNewNotice(r.data);
+
+        setIsSpin(false);
+      })
+      .catch(e => {
         console.error(e);
 
         setIsSpin(false);
@@ -75,12 +100,28 @@ const MainContainer = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 최신 공지사항 클릭
+  const onClickNotice = useCallback(() => {
+    history.push(PATH.NOTICE);
+  }, [history]);
+
+  // 도움말 클릭
+  const onClickQuestion = useCallback(() => {
+    setModalVisible(true);
+  }, []);
+
   return (
     <>
       <Presentation
         topFive={topFive}
         reloadTime={reloadTime}
+        newNotice={newNotice}
         isSpin={isSpin}
+        modalVisible={modalVisible}
+
+        onClickNotice={onClickNotice}
+        onClickQuestion={onClickQuestion}
+        onCancelModal={onCancelModal}
       />
     </>
   );
