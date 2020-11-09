@@ -5,7 +5,7 @@ import {QuestionCircleOutlined} from '@ant-design/icons';
 
 import VideoItem from '../../components/VideoItem';
 
-import {JSX, SORT_CATEGORY, SORT_ORDER} from '../../constants';
+import {JSX, COLOR, SORT_CATEGORY, SORT_ORDER} from '../../constants';
 
 const Container = styled.div`
   width: 1200px;
@@ -63,7 +63,7 @@ const Icon = styled.div`
 
   font-size: 1rem;
   line-height: 10px;
-  color: #c50066;
+  color: ${COLOR.CHIM_MAIN};
 
   cursor: pointer;
 `;
@@ -112,14 +112,14 @@ const Button = styled.div`
   height: 30px;
 
   line-height: 30px;
-  color: #c50066;
+  color: ${COLOR.CHIM_MAIN};
   font-size: .8rem;
   font-weight: 600;
   user-select: none;
   text-align: center;
 
   box-sizing: border-box;
-  border: 2px solid #c50066;
+  border: 2px solid ${COLOR.CHIM_MAIN};
   border-radius: 25px;
   outline: none;
 
@@ -129,7 +129,7 @@ const Button = styled.div`
 
   transition: .5s all ease;
   &:hover {
-    background: #c50066;
+    background: ${COLOR.CHIM_MAIN};
     color: white;
   }
 `;

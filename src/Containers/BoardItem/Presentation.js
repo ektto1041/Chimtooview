@@ -4,6 +4,8 @@ import {Spin, Modal, Pagination} from 'antd';
 import ReactHtmlParser from 'react-html-parser';
 import {CloseCircleOutlined, WarningOutlined} from '@ant-design/icons';
 
+import {COLOR} from '../../constants';
+
 const Container = styled.div`
   width: 100%;
 `;
@@ -94,7 +96,7 @@ const Button = styled.div`
 
   line-height: 70px;
   text-align: center;
-  color: #c50066;
+  color: ${COLOR.CHIM_MAIN};
   font-size: 2rem;
 
   cursor: pointer;
@@ -175,7 +177,7 @@ const Icon = styled.div`
   width: 25px;
   min-height: 35px;
 
-  color: #c50066;
+  color: ${COLOR.CHIM_MAIN};
   font-size: 1rem;
 
   cursor: pointer;
@@ -216,14 +218,14 @@ const CommentItemPost = styled.div`
   margin: 5px;
 
   line-height: 65px;
-  color: #c50066;
+  color: ${COLOR.CHIM_MAIN};
   font-size: 1rem;
   font-weight: 600;
   user-select: none;
   text-align: center;
 
   box-sizing: border-box;
-  border: 2px solid #c50066;
+  border: 2px solid ${COLOR.CHIM_MAIN};
   border-radius: 15px;
   outline: none;
 
@@ -233,7 +235,7 @@ const CommentItemPost = styled.div`
 
   transition: .5s all ease;
   &:hover {
-    background: #c50066;
+    background: ${COLOR.CHIM_MAIN};
     color: white;
   }
 `;

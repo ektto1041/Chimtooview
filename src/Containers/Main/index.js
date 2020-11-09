@@ -7,6 +7,7 @@ import Presentation from './Presentation';
 
 const MainContainer = ({
   history,
+  ownerId,
 }) => {
   // 각 분류마다 상위 5개의 Video를 담는 State
   const [topFive, setTopFive] = useState({
@@ -59,7 +60,7 @@ const MainContainer = ({
       });
 
       // 모든 Video 가져오기
-      await serverApis.getVideoAllForTopFive()
+      await serverApis.getVideoAllForTopFive(ownerId)
       .then(r => {
         const allVideoForTopFive = r.data;
 
@@ -95,10 +96,8 @@ const MainContainer = ({
         setIsSpin(false);
       })
     };
-
     initFunc();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ownerId]);
 
   // 최신 공지사항 클릭
   const onClickNotice = useCallback(() => {

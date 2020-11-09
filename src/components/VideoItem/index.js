@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import {COLOR} from '../../constants';
 import {EyeOutlined, LikeOutlined, DislikeOutlined, CalendarOutlined, HistoryOutlined} from '@ant-design/icons';
 
 const Item = styled.div`
@@ -80,7 +81,7 @@ const Icon = styled.div`
   height: 20px;
 
   line-height: 20px;
-  color: #c50066;
+  color: ${COLOR.CHIM_MAIN};
 `;
 
 const VideoItem = ({

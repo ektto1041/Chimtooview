@@ -5,7 +5,7 @@ import {QuestionCircleOutlined} from '@ant-design/icons';
 
 import VideoItem from '../../components/VideoItem';
 
-import {JSX, SORT_CATEGORY} from '../../constants';
+import {JSX, COLOR} from '../../constants';
 
 const Container = styled.div`
   width: 1200px;
@@ -75,7 +75,7 @@ const Icon = styled.div`
 
   font-size: 1rem;
   line-height: 10px;
-  color: #c50066;
+  color: ${COLOR.CHIM_MAIN};
 
   cursor: pointer;
 `;

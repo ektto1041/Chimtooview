@@ -5,7 +5,9 @@ import PlListPresentation from './Presentation';
 import {SORT_CATEGORY, SORT_ORDER} from '../../constants';
 import {serverApis} from '../../Api';
 
-const PlListContainer = () => {
+const PlListContainer = ({
+  ownerId,
+}) => {
   // Video List
   const [list, setList] = useState([]);
 
@@ -50,8 +52,8 @@ const PlListContainer = () => {
       // __BLANK 가 SearchWord 로 전달되면 DB에서 Contain 작업을 수행하지 않음
       const searchWordForApi = (searchWord.trim() === '' ? '__BLANK' : searchWord);
 
-      // Filter 가 적용된 Video List 의 데이터 수를 가져오는 API
-      await serverApis.getPlaylistAllCountByFilter(searchWordForApi)
+      // Filter 가 적용된 Playlist List 의 데이터 수를 가져오는 API
+      await serverApis.getPlaylistAllCountByFilter(ownerId, searchWordForApi)
       .then(r => {
         setTotalPage(r.data);
       })
@@ -59,8 +61,8 @@ const PlListContainer = () => {
         console.error(e);
       })
 
-      // Filter&Sort 가 적용된 Video List 를 가져오는 API
-      await serverApis.getPlaylistAllOrderByPaging(chosenSortCategory, chosenSortOrder, searchWordForApi, 1)
+      // Filter&Sort 가 적용된 Playlist List 를 가져오는 API
+      await serverApis.getPlaylistAllOrderByPaging(ownerId, chosenSortCategory, chosenSortOrder, searchWordForApi, 1)
       .then(r => {
         const newList = [];
         for(let i=0; i<r.data.length; i++) {
@@ -84,7 +86,7 @@ const PlListContainer = () => {
     }
 
     setIsSpin(false);
-  }, [chosenSortCategory, chosenSortOrder, searchWord]);
+  }, [ownerId, chosenSortCategory, chosenSortOrder, searchWord]);
 
   // Page 변경
   const onChangePageCurrent = useCallback(async (page) => {
@@ -93,9 +95,8 @@ const PlListContainer = () => {
   // 현재 페이지 변경
   setPageCurrent(page);
 
-
   // Filter&Sort 가 적용된 Video List 를 가져오는 API
-  await serverApis.getPlaylistAllOrderByPaging(nowSortCategory, nowSortOrder, nowSearchWord, page)
+  await serverApis.getPlaylistAllOrderByPaging(ownerId, nowSortCategory, nowSortOrder, nowSearchWord, page)
   .then(r => {
     const newList = [];
     for(let i=0; i<r.data.length; i++) {
@@ -109,7 +110,7 @@ const PlListContainer = () => {
   })
 
   setIsSpin(false);
-  }, [nowSortCategory, nowSortOrder, nowSearchWord])
+  }, [ownerId, nowSortCategory, nowSortOrder, nowSearchWord])
 
   return (
     <>

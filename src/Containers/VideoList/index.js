@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from 'react';
-import Moment from 'moment';
 
 import VideoListPresentation from './Presentation';
 
 import {serverApis} from '../../Api';
 import {SORT_CATEGORY, SORT_ORDER} from '../../constants';
 
-const VideoListContainer = () => {
+const VideoListContainer = ({
+  ownerId,
+}) => {
   // Video List
   const [list, setList] = useState([]);
 
@@ -148,6 +149,7 @@ const VideoListContainer = () => {
 
       // Filter 가 적용된 Video List 의 데이터 수를 가져오는 API
       await serverApis.getVideoAllCountByFilter(
+        ownerId,
         dateRange[0], dateRange[1],
         startViewCount, endViewCount,
         startLikeCount, endLikeCount,
@@ -163,6 +165,7 @@ const VideoListContainer = () => {
 
       // Filter&Sort 가 적용된 Video List 를 가져오는 API
       await serverApis.getVideoAllOrderByPaging(
+        ownerId,
         chosenSortCategory, chosenSortOrder,
         dateRange[0], dateRange[1],
         startViewCount, endViewCount,
@@ -201,7 +204,7 @@ const VideoListContainer = () => {
     }
 
     setIsSpin(false);
-  }, [chosenSortCategory, chosenSortOrder, dateRange, startViewCount, endViewCount, startLikeCount, endLikeCount, startDislikeCount, endDislikeCount, searchWord, searchWordPlaylist]);
+  }, [ownerId, chosenSortCategory, chosenSortOrder, dateRange, startViewCount, endViewCount, startLikeCount, endLikeCount, startDislikeCount, endDislikeCount, searchWord, searchWordPlaylist]);
 
   // Page 변경
   const onChangePageCurrent = useCallback(async (page) => {
@@ -212,6 +215,7 @@ const VideoListContainer = () => {
 
     // Filter&Sort 가 적용된 Video List 를 가져오는 API
     await serverApis.getVideoAllOrderByPaging(
+      ownerId,
       nowSortCategory, nowSortOrder,
       nowDateRange[0], nowDateRange[1],
       nowStartViewCount, nowEndViewCount,
@@ -232,7 +236,7 @@ const VideoListContainer = () => {
     })
 
     setIsSpin(false);
-  }, [nowSortCategory, nowSortOrder, nowDateRange, nowStartViewCount, nowEndViewCount, nowStartLikeCount, nowEndLikeCount, nowStartDislikeCount, nowEndDislikeCount, nowSearchWord, nowSearchWordPlaylist])
+  }, [ownerId, nowSortCategory, nowSortOrder, nowDateRange, nowStartViewCount, nowEndViewCount, nowStartLikeCount, nowEndLikeCount, nowStartDislikeCount, nowEndDislikeCount, nowSearchWord, nowSearchWordPlaylist])
 
   // 도움말 클릭
   const onClickQuestion = useCallback(() => {
